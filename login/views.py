@@ -13,8 +13,7 @@ from django.contrib.auth.models import User
 
 
 def inicio(request): #vista de inicio
-    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
-    return render (request, "inicio.html", {'imagen':imagen})
+    return render (request, "inicio.html")
 
 def login_request(request): # vista para loguear
     if request.method=="POST":#si el metodo es post

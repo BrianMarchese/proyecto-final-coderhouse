@@ -26,4 +26,4 @@ class Post(models.Model):
 
 class Avatar(models.Model):#modelo de avatar
     user= models.ForeignKey(User, on_delete=models.CASCADE)#campo usuario
-    imagen= models.ImageField(upload_to='', null= True, blank=True, default='avatar_default.jpg')#campo imagen 
+    imagen= models.ImageField(upload_to='', null=True, blank=True)#campo imagen 
