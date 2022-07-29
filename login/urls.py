@@ -17,5 +17,6 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('editar_perfil/', editar_Perfil, name='editar_perfil'),
     path('usuario_detalle/', usuario_detalle, name='usuario_detalle'),
+    path('agregar_avatar/', agregar_avatar, name='agregar_avatar'),
     
 ]

@@ -29,6 +29,7 @@
                             <a class="btn btn-primary" href="{% url 'login'  %}">Login</a> 
                         {% else %}
                             <img src="{{ imagen }}" alt="imagen de perfil"/>
+                            <a class="btn btn-primary" href="{% url 'logout'  %}">Logout</a>
                         {% endif %}
                     </ul>
                 </div>
