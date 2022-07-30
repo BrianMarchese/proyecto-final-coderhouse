@@ -23,13 +23,14 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuario_detalle' %}">Perfil</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Sobre Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
                         {% if not request.user.is_authenticated %}
                             <a class="btn btn-primary" href="{% url 'login'  %}">Login</a> 
                             <p style="color: white;">Si no estas registrado hacelo aca →</p>
                             <a class="btn btn-primary" href="{% url 'register'  %}">Registrate</a>
                         {% else %}
+                            <li  class="nav-item"><a  style="color: rgba(255, 0, 0, 0.815);" class="nav-link active" aria-current="page" href="{% url 'nuevo_avatar' %}"> Agrega tu primer avatar</a></li>
+                            <a class="btn btn-primary" href="{% url 'agregar_avatar' %}">Actualiza tu Avatar</a>
                             <p style="color: white;">hola! {{ request.user.username }}</p>
                             <img style="width: 140px;" src="{{ imagen }}" alt="imagen de perfil"/>
                             <a class="btn btn-primary" href="{% url 'logout'  %}">Logout</a>

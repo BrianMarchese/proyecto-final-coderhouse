@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from login.forms import UserRegisterForm, UserEditForm, Avatar_Form
-from .models import Categoria, Post, Avatar
+from .models import  Post, Avatar
 from django.views.generic import DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -99,10 +99,10 @@ def editar_Perfil(request):
 @login_required
 def usuario_detalle(request): #vista para detalle de usuario
     usuario= User.objects.all() #se obtiene el usuario
-    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url # muestra el avatar del usuario
     return render(request, 'usuario_detalle.html', {'usuario':usuario, 'imagen':imagen}) #vista para crear un post
 
-def agregar_avatar(request): #vista para agregar avatar
+def agregar_avatar(request): #vista para agregar actualizar avatar
     if request.method == 'POST': #si el metodo es post
         formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
         if formulario.is_valid(): #si el formulario es valido
@@ -115,3 +115,15 @@ def agregar_avatar(request): #vista para agregar avatar
     else: #si el metodo no es post
         formulario= Avatar_Form() #se crea un formulario
     return render(request, 'agregar_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina de agregar avatar
+
+
+def nuevo_avatar(request): #vista para agregar el primer avatar
+    if request.method == 'POST': #si el metodo es post
+        formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
+        if formulario.is_valid(): #si el formulario es valido
+            avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
+            avatar.save() #se guarda el avatar
+            return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'AVATAR AGREGADO EXITOSAMENTE'})
+    else: #si el metodo no es post
+        formulario= Avatar_Form() #se crea un formulario
+    return render(request, 'nuevo_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina de nuevo avatar

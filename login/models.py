@@ -3,12 +3,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.utils import timezone
 # Create your models here.
-
-class Categoria(models.Model):
-    nombre= models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nombre
+   
 
 class Post(models.Model):
     autor= models.ForeignKey(User, on_delete=models.CASCADE, default=User)

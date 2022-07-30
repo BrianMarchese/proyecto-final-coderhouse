@@ -18,5 +18,6 @@ urlpatterns = [
     path('editar_perfil/', editar_Perfil, name='editar_perfil'),
     path('usuario_detalle/', usuario_detalle, name='usuario_detalle'),
     path('agregar_avatar/', agregar_avatar, name='agregar_avatar'),
+    path('nuevo_avatar/', nuevo_avatar, name='nuevo_avatar'),
     
 ]
