@@ -12,5 +12,9 @@ def enviar_mensaje(request):#Funcion para enviar mensaje
     model.save()#se guarda el mensaje 
     return render(request, 'inicio.html', {'mensaje':f"Mensaje Enviado"})#se redirecciona a la pagina de inicio con un mensaje de confirmacion 
 
+def ver_mensajes(request):#Funcion para ver los mensajes 
+    mensajes= mensaje.objects.filter(remitente=request.user)#se obtienen los mensajes del usuario 
+    return render(request, 'mensajes.html', {'mensajes':mensajes})#se redirecciona a la pagina de mensajes con los mensajes obtenidos
+
 
 

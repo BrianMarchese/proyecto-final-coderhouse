@@ -19,10 +19,10 @@ from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', include('login.urls')),
-    path('', inicio, name='inicio'),
-    path('mensajeria/', include('mensajeria.urls')),
+    path('admin/', admin.site.urls),#se crea la ruta para admin
+    path('login/', include('login.urls')),#se crea la ruta para login
+    path('', inicio, name='inicio'),#se crea la ruta para inicio
+    path('mensajeria/', include('mensajeria.urls')),#se crea la ruta para mensajeria
 ]
 
-urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#se crea la ruta para media
