@@ -67,7 +67,7 @@ def eliminar_electrico(request, post_titulo): #vista de eliminar electricos
     post.delete()#se elimina el post
 
     postt= Post.objects.all()#se obtienen todos los posts
-    return render(request, 'inicio.html', {"postt":postt}) # lo dejo que retorne a inicio.html porque al retornal a electricos.html no me muestra los autos, revisar eso
+    return render(request, 'inicio.html', {"postt":postt}) # retorno a inicio
 
 
 class Electrico_editar(UpdateView, LoginRequiredMixin):#vista de editar electricos

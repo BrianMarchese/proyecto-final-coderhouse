@@ -1,27 +1,19 @@
 from .models import mensaje
 from django.shortcuts import render
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
-def crear_mensaje(request):#Funcion para crear mensaje 
-    return render(request, 'crear_mensaje.html')
-
-def enviar_mensaje(request):#Funcion para enviar mensaje 
-    model= mensaje()#modelo de mensaje 
-    model.remitente= request.user#se obtiene el usuario que envia el mensaje 
-    model.receptor= request.user#se obtiene el usuario que recibe el mensaje 
-    model.contenido= request.POST['contenido']#se obtiene el contenido del mensaje 
-    model.estado= False#se obtiene el estado del mensaje 
-    model.save()#se guarda el mensaje 
-    return render(request, 'inicio.html', {'mensaje':f"Mensaje Enviado"})#se redirecciona a la pagina de inicio con un mensaje de confirmacion 
-
-def leer_mensajes(request):#Funcion para ver los mensajes 
-    mensajes= mensaje.objects.filter(remitente=request.user)#se obtienen los mensajes del usuario 
+def mensajes(request):#Funcion para ver los mensajes 
+    mensajes= mensaje.objects.filter(emisor=request.user)#se obtienen los mensajes del usuario
+    mensajes= mensaje.objects.filter(receptor=request.user) 
     return render(request, 'mensajes.html', {'mensajes':mensajes})#se redirecciona a la pagina de mensajes con los mensajes obtenidos
 
-def leer_mensaje(request, id):#Funcion para ver un mensaje 
-    mensaje= mensaje.objects.get(id=id)#se obtiene el mensaje 
-    mensaje.estado= True#se cambia el estado del mensaje 
-    mensaje.save()#se guarda el mensaje 
-    return render(request, 'mensaje.html', {'mensaje':mensaje})#se redirecciona a la pagina de mensaje con el mensaje obtenido
-
+class Mensaje_creacion(CreateView, LoginRequiredMixin):#vista de creacion de electricos
+    model= mensaje#modelo de post
+    fields= ['emisor','receptor', 'contenido']#campos del modelo
+    template_name= 'mensaje_form.html'#plantilla de creacion de electricos
+    success_url= reverse_lazy("mensajes")#redireccion a la misma pagina

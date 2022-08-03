@@ -1,28 +1,29 @@
-<!DOCTYPE_html_>
+<!DOCTYPE html>
 
-<html_lang_="en">
+<html lang="en">
 
     {% load static %}
 
     <head>
 
-        <meta_charset_="utf-8" />
+        <meta charset="utf-8" />
 
-        <meta_name_="viewport"_content_="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <meta_name_="description"_content_="" />
+        <meta name="description" content="" />
 
-        <meta_name_="author"_content_="" />
+        <meta name="author" content="" />
 
         <title>Blog De Autos</title>
 
         <!--_ Favicon_-->
 
-        <link_rel_="icon"_type_="image/x-icon"_href_="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
         <!--_ Core theme CSS (includes Bootstrap)_-->
 
-        <link_href_="{% static 'css\styles.css' %}"_rel_="stylesheet" />
+        <link href="{% static 'css\styles.css' %}" rel="stylesheet"/>
+    <head>
     <body>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,8 +34,9 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'usuario_detalle' %}">Perfil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'mensajes' %}">Mensajeria</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Sobre Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'electricos' %}">Posts</a></li>
                         {% if not request.user.is_authenticated %}
                             <a class="btn btn-primary" href="{% url 'login'  %}">Login</a> 
                             <p style="color: white;">Si no estas registrado hacelo aca →</p>
@@ -81,40 +83,6 @@
                     <!-- Nested row for non-featured blog posts-->
                 </div>
                 <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Buscar</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Buscar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Categories widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Categorias</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="{% url 'electricos' %}">Electricos</a></li>
-                                        <li><a href="#!">HTML</a></li>
-                                        <li><a href="#!">Freebies</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">JavaScript</a></li>
-                                        <li><a href="#!">CSS</a></li>
-                                        <li><a href="#!">Tutorials</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- Footer-->
