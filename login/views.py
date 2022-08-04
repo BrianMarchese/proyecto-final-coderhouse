@@ -62,6 +62,7 @@ class Electrico_creacion(CreateView, LoginRequiredMixin):#vista de creacion de e
     template_name= 'electrico_form.html'#plantilla de creacion de electricos
     success_url= reverse_lazy("electricos")#redireccion a la misma pagina
 
+@login_required
 def eliminar_electrico(request, post_titulo): #vista de eliminar electricos
     post= Post.objects.get(titulo=post_titulo)#se obtiene el post
     post.delete()#se elimina el post
@@ -76,9 +77,11 @@ class Electrico_editar(UpdateView, LoginRequiredMixin):#vista de editar electric
     template_name= 'electrico_form.html'#plantilla de editar electricos
     success_url= reverse_lazy("electricos")#redireccion a la misma pagina
 
+@login_required
 def about(request):#vista de about
     return render(request, "about.html")#se redirecciona a la pagina de about
 
+@login_required
 def editar_Perfil(request):#vista de editar perfil
     usuario=request.user#se obtiene el usuario
 

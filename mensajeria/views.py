@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-
+@login_required
 def mensajes(request):#Funcion para ver los mensajes 
     mensajes= mensaje.objects.filter(emisor=request.user)#se obtienen los mensajes del usuario
     mensajes= mensaje.objects.filter(receptor=request.user) 
