@@ -13,7 +13,6 @@ class UserRegisterForm(UserCreationForm):#Formulario para registrar usuarios
         help_texts = {k:"" for k in fields}#Ayuda para los campos del modelo
 
 class UserEditForm(UserCreationForm):#Formulario para editar usuarios
-    link=forms.URLField(label='Red social', required=False)
     password1 = forms.CharField(label=' Nueva Contraseña', widget=forms.PasswordInput)#Campo contraseña
     password2 = forms.CharField(label='Confirme la contraseña', widget=forms.PasswordInput)#Campo confirmacion de contraseña
 
