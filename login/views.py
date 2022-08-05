@@ -89,8 +89,7 @@ def editar_Perfil(request):#vista de editar perfil
         formulario=UserEditForm(request.POST, instance=usuario)#se crea un formulario con los datos del request
         if formulario.is_valid():#si el formulario es valido
             informacion=formulario.cleaned_data#se obtiene la informacion del formulario
-            usuario.password1=informacion['password1']#se obtiene la contraseña
-            usuario.password2=informacion['password2']#se obtiene la contraseña
+            usuario.set_password(informacion['password1'])#se obtiene la contraseña
             usuario.save()#se guarda el usuario
 
             return render(request, 'inicio.html', {'usuario':usuario, 'mensaje':'PERFIL EDITADO EXITOSAMENTE'})#se redirecciona a la pagina de inicio
