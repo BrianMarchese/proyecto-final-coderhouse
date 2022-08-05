@@ -12,6 +12,7 @@
 
 {% block contenido_que_cambia %}
         <div class="container">
+        {% if posts %}
         {% for post in posts %}
             <div class="row">
                 <div class="col-lg-8">
@@ -33,6 +34,9 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+            <h1>No hay posts crea uno!</h1>
+        {% endif %}
         </div>
 
 
