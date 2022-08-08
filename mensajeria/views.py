@@ -12,8 +12,8 @@ def mensajes(request):#Funcion para ver los mensajes
     mensajes= mensaje.objects.filter(receptor=request.user) 
     return render(request, 'mensajes.html', {'mensajes':mensajes})#se redirecciona a la pagina de mensajes con los mensajes obtenidos
 
-class Mensaje_creacion(CreateView, LoginRequiredMixin):#vista de creacion de electricos
+class Mensaje_creacion(CreateView, LoginRequiredMixin):#vista de creacion de mensaje
     model= mensaje#modelo de post
     fields= ['emisor','receptor', 'contenido']#campos del modelo
-    template_name= 'mensaje_form.html'#plantilla de creacion de electricos
+    template_name= 'mensaje_form.html'#plantilla de creacion de mensaje
     success_url= reverse_lazy("mensajes")#redireccion a la misma pagina
