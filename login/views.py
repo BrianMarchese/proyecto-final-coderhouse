@@ -101,22 +101,32 @@ def editar_Perfil(request):#vista de editar perfil
 @login_required
 def usuario_detalle(request): #vista para detalle de usuario
     usuario= User.objects.all() #se obtiene el usuario
-    imagen= Avatar.objects.filter(user= request.user.id)[0].imagen.url # muestra el avatar del usuario
-    return render(request, 'usuario_detalle.html', {'usuario':usuario, 'imagen':imagen}) #vista para crear un post
+    imagen= Avatar.objects.filter(user= request.user.id) #se obtiene la imagen del usuario
+    if len(imagen) !=0:#si la longitud de la imagen no es 0
+        imagen=imagen[0].imagen.url#se obtiene la imagen
+        return render(request, 'usuario_detalle.html', {'usuario':usuario, 'imagen':imagen}) #se redirecciona a la pagina de usuario detalle
+    else:#si la imagen no es nula
+        imagen= 'avatar1.jpg'#se asigna la imagen por defecto
+        return render(request, 'usuario_detalle.html', {'usuario':usuario, 'imagen':imagen}) #se redirecciona a la pagina de usuario detalle
+    
 
 def agregar_avatar(request): #vista para agregar actualizar avatar
     if request.method == 'POST': #si el metodo es post
-        formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
-        if formulario.is_valid(): #si el formulario es valido
-            avatar_viejo= Avatar.objects.get(user=request.user)
-            if(avatar_viejo.imagen):
-                avatar_viejo.delete()
-            avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
-            avatar.save() #se guarda el avatar
-            return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'AVATAR AGREGADO EXITOSAMENTE'})
+        imagen= Avatar.objects.filter(user= request.user.id)
+        if len(imagen) !=0:#si la longitud de la imagen no es 0
+                formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
+                if formulario.is_valid(): #si el formulario es valido
+                    avatar_viejo= Avatar.objects.get(user=request.user)#se obtiene el avatar viejo del usuario
+                    if(avatar_viejo.imagen):#si el avatar existe
+                        avatar_viejo.delete()# se elimina el avatar
+                    avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
+                    avatar.save() #se guarda el avatar
+                    return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'se agrego el nuevo avatar'})#se redirecciona a la pagina de inicio
+        else:#si la imagen no es nula
+            return render(request, 'nuevo_avatar.html', {'formulario':Avatar_Form()})#se redirecciona a la pagina de nuevo avatar
     else: #si el metodo no es post
         formulario= Avatar_Form() #se crea un formulario
-    return render(request, 'agregar_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina de agregar avatar
+        return render(request, 'agregar_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina para agregar un avatar
 
 
 def nuevo_avatar(request): #vista para agregar el primer avatar
@@ -125,7 +135,7 @@ def nuevo_avatar(request): #vista para agregar el primer avatar
         if formulario.is_valid(): #si el formulario es valido
             avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
             avatar.save() #se guarda el avatar
-            return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'AVATAR AGREGADO EXITOSAMENTE'})
+            return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'se agrego el nuevo avatar'})#se redirecciona a la pagina de inicio
     else: #si el metodo no es post
         formulario= Avatar_Form() #se crea un formulario
     return render(request, 'nuevo_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina de nuevo avatar
