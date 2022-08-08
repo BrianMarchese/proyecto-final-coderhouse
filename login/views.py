@@ -131,11 +131,15 @@ def agregar_avatar(request): #vista para agregar actualizar avatar
 
 def nuevo_avatar(request): #vista para agregar el primer avatar
     if request.method == 'POST': #si el metodo es post
-        formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
-        if formulario.is_valid(): #si el formulario es valido
-            avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
-            avatar.save() #se guarda el avatar
-            return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'se agrego el nuevo avatar'})#se redirecciona a la pagina de inicio
+        imagen= Avatar.objects.filter(user= request.user.id) #se obtiene el avatar del usuario
+        if len(imagen) ==0:#si la longitud de la imagen no es 0
+            formulario= Avatar_Form(request.POST, request.FILES) #se crea un formulario con los datos del request
+            if formulario.is_valid(): #si el formulario es valido
+                avatar= Avatar(user=request.user, imagen=formulario.cleaned_data['imagen']) #se crea un avatar con los datos del request
+                avatar.save() #se guarda el avatar
+                return render(request, 'inicio.html', {'usuario':request.user, 'mensaje':'se agrego el nuevo avatar'})#se redirecciona a la pagina de inicio
+        else:#si la imagen no es nula
+            return render(request, 'agregar_avatar.html', {'formulario':Avatar_Form()})#se redirecciona a la pagina de nuevo avatar
     else: #si el metodo no es post
         formulario= Avatar_Form() #se crea un formulario
     return render(request, 'nuevo_avatar.html', {'formulario':formulario, 'usuario':request.user}) #se redirecciona a la pagina de nuevo avatar

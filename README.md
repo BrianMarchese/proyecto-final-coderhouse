@@ -1,1 +1,2 @@
 # proyecto-final-coderhouse
+Bruno Tornese: Practicamente el trabajo entero lo realize junto a Brian los 2 juntos a la par por disord, realmente me resulto muy entretenido y me senti bien trabajando con el!
